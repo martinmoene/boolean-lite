@@ -87,6 +87,8 @@ The behaviour of boolean differs under C++98 and C++11 and later. Specificaly th
 - copy initialization like `boolean_ b = true;`
 - comparison to `bool`, like `boolean_ f( false ); boolean_ result = f == true;`
 
+Note: The name `boolean_` is used for the type to prevent clashing with type `boolean` from the Windows SDK (rpcndr.h(193)).
+
 | Kind                    | std   | Function or method |
 |-------------------------|-------|--------------------|
 | **Construction**        |C++11  | template&lt;typename T *[bool]*> constexpr **boolean\_(T v)** noexcept; |

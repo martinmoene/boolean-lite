@@ -10,6 +10,8 @@
 // "Fun with Concepts: Do You Even Lift, Bool?" by Colby Pike (vector-of-bool), Oct 26, 2020.
 // https://vector-of-bool.github.io/2020/10/26/strong-bool.html
 
+// The name boolean_ is used to prevent clashing with boolean from the Windows SDK (rpcndr.h(193))
+
 #ifndef NONSTD_BOOLEAN_LITE_HPP
 #define NONSTD_BOOLEAN_LITE_HPP
 
@@ -212,7 +214,7 @@ namespace std11 {
 }
 
 //
-// boolean_: prevent name clash with ... on Windows.
+// class boolean_, C++11:
 //
 
 class boolean_
@@ -294,7 +296,7 @@ public:
 #else // boolean_CPP98_FALLBACK
 
 //
-// boolean_: prevent name clash with ... on Windows.
+// class boolean_, C++98:
 //
 
 class boolean_
