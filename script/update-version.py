@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2017-2018 by Martin Moene
+# Copyright 2020-2020 by Martin Moene
 #
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -24,32 +24,32 @@ table = (
         , '    VERSION {major}.{minor}.{patch}' )
 
     , ( 'CMakeLists.txt'
-        , r'set\W+any_lite_version\W+"([0-9]+\.[0-9]+\.[0-9]+)"\W+$'
-        , 'set( any_lite_version "{major}.{minor}.{patch}" )\n' )
+        , r'set\W+boolean_lite_version\W+"([0-9]+\.[0-9]+\.[0-9]+)"\W+$'
+        , 'set( boolean_lite_version "{major}.{minor}.{patch}" )\n' )
 
 #    , ( 'example/cmake-pkg/CMakeLists.txt'
-#        , r'set\W+any_lite_version\W+"([0-9]+\.[0-9]+(\.[0-9]+)?)"\W+$'
-#        , 'set( any_lite_version "{major}.{minor}" )\n' )
+#        , r'set\W+boolean_lite_version\W+"([0-9]+\.[0-9]+(\.[0-9]+)?)"\W+$'
+#        , 'set( boolean_lite_version "{major}.{minor}" )\n' )
 #
 #    , ( 'script/install-xxx-pkg.py'
-#        , r'\any_lite_version\s+=\s+"([0-9]+\.[0-9]+\.[0-9]+)"\s*$'
-#        , 'any_lite_version = "{major}.{minor}.{patch}"\n' )
+#        , r'\boolean_lite_version\s+=\s+"([0-9]+\.[0-9]+\.[0-9]+)"\s*$'
+#        , 'boolean_lite_version = "{major}.{minor}.{patch}"\n' )
 
     , ( 'conanfile.py'
         , r'version\s+=\s+"([0-9]+\.[0-9]+\.[0-9]+)"\s*$'
         , 'version = "{major}.{minor}.{patch}"' )
 
-    , ( 'include/nonstd/any.hpp'
-        , r'\#define\s+any_lite_MAJOR\s+[0-9]+\s*$'
-        , '#define any_lite_MAJOR  {major}' )
+    , ( 'include/nonstd/boolean.hpp'
+        , r'\#define\s+boolean_lite_MAJOR\s+[0-9]+\s*$'
+        , '#define boolean_lite_MAJOR  {major}' )
 
-    , ( 'include/nonstd/any.hpp'
-        , r'\#define\s+any_lite_MINOR\s+[0-9]+\s*$'
-        , '#define any_lite_MINOR  {minor}' )
+    , ( 'include/nonstd/boolean.hpp'
+        , r'\#define\s+boolean_lite_MINOR\s+[0-9]+\s*$'
+        , '#define boolean_lite_MINOR  {minor}' )
 
-    , ( 'include/nonstd/any.hpp'
-        , r'\#define\s+any_lite_PATCH\s+[0-9]+\s*$'
-        , '#define any_lite_PATCH  {patch}\n' )
+    , ( 'include/nonstd/boolean.hpp'
+        , r'\#define\s+boolean_lite_PATCH\s+[0-9]+\s*$'
+        , '#define boolean_lite_PATCH  {patch}\n' )
 )
 
 # End configuration.
