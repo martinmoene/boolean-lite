@@ -25,6 +25,8 @@ CASE( "boolean-lite version" "[.boolean][.version]" )
     boolean_PRESENT( boolean_lite_MINOR   );
     boolean_PRESENT( boolean_lite_PATCH   );
     boolean_PRESENT( boolean_lite_VERSION );
+
+    boolean_PRESENT( boolean_CPP98_FALLBACK );
 }
 
 CASE( "boolean-lite configuration" "[.boolean][.config]" )
