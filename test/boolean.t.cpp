@@ -175,9 +175,9 @@ CASE( "boolean: Allows to compare greater than or equal with bool (C++11)" )
 #endif
 }
 
-CASE( "boolean: no discard (C++17)" )
+CASE( "boolean: Supports no discard (C++17, -DBOOLEAN_TEST_NODISCARD=1)" )
 {
-#ifdef BOOLEAN_COMPILE_NODISCARD
+#ifdef BOOLEAN_TEST_NODISCARD
     boolean_ f( false );
     boolean_ t( true  );
 
@@ -193,4 +193,12 @@ CASE( "boolean: no discard (C++17)" )
 #endif
 }
 
+CASE( "tweak header: Reads tweak header if supported " "[tweak]" )
+{
+#if boolean_HAVE_TWEAK_HEADER
+    EXPECT( BOOLEAN_TWEAK_VALUE == 42 );
+#else
+    EXPECT( !!"Tweak header is not available (boolean_HAVE_TWEAK_HEADER: 0)." );
+#endif
+}
 } // anonymous namespace
