@@ -16,7 +16,7 @@
 #define NONSTD_BOOLEAN_LITE_HPP
 
 #define boolean_lite_MAJOR  0
-#define boolean_lite_MINOR  0
+#define boolean_lite_MINOR  1
 #define boolean_lite_PATCH  0
 
 #define boolean_lite_VERSION  boolean_STRINGIFY(boolean_lite_MAJOR) "." boolean_STRINGIFY(boolean_lite_MINOR) "." boolean_STRINGIFY(boolean_lite_PATCH)
