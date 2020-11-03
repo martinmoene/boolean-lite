@@ -22,6 +22,18 @@
 #define boolean_STRINGIFY(  x )  boolean_STRINGIFY_( x )
 #define boolean_STRINGIFY_( x )  #x
 
+// tweak header support:
+
+#ifdef __has_include
+# if __has_include(<nonstd/boolean.tweak.hpp>)
+#  include <nonstd/boolean.tweak.hpp>
+# endif
+#define boolean_HAVE_TWEAK_HEADER  1
+#else
+#define boolean_HAVE_TWEAK_HEADER  0
+//# pragma message("boolean.hpp: Note: Tweak header not supported.")
+#endif
+
 // C++ language version detection (C++20 is speculative):
 // Note: VC14.0/1900 (VS2015) lacks too much from C++14.
 
