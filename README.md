@@ -82,7 +82,7 @@ Eat 5 cookies and leave crumbs
 
 ### Documentation of `nonstd::boolean`
 
-The behaviour of boolean differs under C++98 and C++11 and later. Specificaly the C++11 version allows the following that is not supported by the C++98 version of `boolean_`.
+The behaviour of boolean differs under C++98 and C++11 and later. Specifically the C++11 version allows the following that is not supported by the C++98 version of `boolean_`.
 
 - copy initialization like `boolean_ b = true;`
 - comparison to `bool`, like `boolean_ f( false ); boolean_ result = f == true;`
@@ -93,15 +93,15 @@ Note: The name `boolean_` is used for the type to prevent clashing with type `bo
 |-------------------------|-------|--------------------|
 | **Construction**        |C++11  | template&lt;typename T *[bool]*> constexpr **boolean\_(T v)** noexcept; |
 | &nbsp;                  |&#8942;| template&lt;typename T *[!bool]*> explicit constexpr **boolean\_(T v)** noexcept; |
-| **Conversion**          |&#8942;| template&lt;typename T *[bool]*> [[nodiscard]] constexpr **operator T()** const noexcept; |
-| &nbsp;                  |&#8942;| template&lt;typename T *[!bool]*> [[nodiscard]] explicit constexpr **operator T()** const noexcept; |
-| **Negation**            |&#8942;| [[nodiscard]] friend explicit constexpr **operator!()** const noexcept; |
-| **Equality**            |&#8942;| [[nodiscard]] friend explicit constexpr **operator==(boolean\_ a, boolean\_ b)** noexcept; |
-| &nbsp;                  |&#8942;| [[nodiscard]] friend explicit constexpr **operator!=(boolean\_ a, boolean\_ b)** noexcept; |
-| **Ordering**            |&#8942;| [[nodiscard]] friend explicit constexpr **operator<(boolean\_ a, boolean\_ b)** noexcept; |
-| &nbsp;                  |&#8942;| [[nodiscard]] friend explicit constexpr **operator>(boolean\_ a, boolean\_ b)** noexcept; |
-| &nbsp;                  |&#8942;| [[nodiscard]] friend explicit constexpr **operator<=(boolean\_ a, boolean\_ b)** noexcept; |
-| &nbsp;                  |C++11  | [[nodiscard]] friend explicit constexpr **operator>=(boolean\_ a, boolean\_ b)** noexcept; |
+| **Conversion**          |&#8942;| template&lt;typename T *[bool]*> \[[nodiscard]] constexpr **operator T()** const noexcept; |
+| &nbsp;                  |&#8942;| template&lt;typename T *[!bool]*> \[[nodiscard]] explicit constexpr **operator T()** const noexcept; |
+| **Negation**            |&#8942;| \[[nodiscard]] friend explicit constexpr **operator!()** const noexcept; |
+| **Equality**            |&#8942;| \[[nodiscard]] friend explicit constexpr **operator==(boolean\_ a, boolean\_ b)** noexcept; |
+| &nbsp;                  |&#8942;| \[[nodiscard]] friend explicit constexpr **operator!=(boolean\_ a, boolean\_ b)** noexcept; |
+| **Ordering**            |&#8942;| \[[nodiscard]] friend explicit constexpr **operator<(boolean\_ a, boolean\_ b)** noexcept; |
+| &nbsp;                  |&#8942;| \[[nodiscard]] friend explicit constexpr **operator>(boolean\_ a, boolean\_ b)** noexcept; |
+| &nbsp;                  |&#8942;| \[[nodiscard]] friend explicit constexpr **operator<=(boolean\_ a, boolean\_ b)** noexcept; |
+| &nbsp;                  |C++11  | \[[nodiscard]] friend explicit constexpr **operator>=(boolean\_ a, boolean\_ b)** noexcept; |
 | &nbsp;                  |&nbsp; |&nbsp;|
 | **Construction**<br>&nbsp;|C++98<br>&nbsp;  | explicit **boolean\_(bool v)**;<br>Note: no copy initialization: `boolean_ b = true;` |
 | **Conversion**<br>&nbsp;  |&#8942;<br>&nbsp;| operator **bool_type()** const;<br>Note: bool_type allows for safe convertions |
@@ -117,7 +117,7 @@ Note: The name `boolean_` is used for the type to prevent clashing with type `bo
 
 #### Tweak header
 
-If the compiler supports [`__has_include()`](https://en.cppreference.com/w/cpp/preprocessor/include), *boolean lite* supports the [tweak header](https://vector-of-bool.github.io/2020/10/04/lib-configuration.html) mechanism. Provide your *tweak header* as `nonstd/boolean.tweak.hpp` in a folder in the include-search-path. In the tweak header, provide definitions as documented below, like `#define boolean_CONFIG_NO_EXCEPTIONS 1`.
+If the compiler supports [`__has_include()`](https://en.cppreference.com/w/cpp/preprocessor/include), *boolean lite* supports the [tweak header](https://vector-of-bool.github.io/2020/10/04/lib-configuration.html) mechanism. Provide your *tweak header* as `nonstd/boolean.tweak.hpp` in a folder in the include-search-path. In the tweak header, provide definitions as documented below, like `#define boolean_CPLUSPLUS 201103L`.
 
 #### Standard selection macro
 
