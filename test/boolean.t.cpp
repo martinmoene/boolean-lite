@@ -177,7 +177,7 @@ CASE( "boolean: Allows to compare greater than or equal with bool (C++11)" )
 
 CASE( "boolean: Supports no discard (C++17, -DBOOLEAN_TEST_NODISCARD=1)" )
 {
-#ifdef BOOLEAN_TEST_NODISCARD
+#if defined BOOLEAN_TEST_NODISCARD && BOOLEAN_TEST_NODISCARD
     boolean_ f( false );
     boolean_ t( true  );
 

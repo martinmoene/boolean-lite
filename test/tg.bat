@@ -18,7 +18,8 @@ call :CompilerVersion version
 echo %gpp% %version%: %std% %args%
 
 set unit_config=^
-    -Dboolean_BOOLEAN_HEADER=\"nonstd/boolean.hpp\"
+    -Dboolean_BOOLEAN_HEADER=\"nonstd/boolean.hpp\" ^
+    -DBOOLEAN_TEST_NODISCARD=0
 
 rem -flto / -fwhole-program
 set  optflags=-O2

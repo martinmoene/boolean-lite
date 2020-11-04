@@ -15,7 +15,8 @@ call :CompilerVersion version
 echo VC%version%: %args%
 
 set unit_config=^
-    -Dboolean_BOOLEAN_HEADER=\"nonstd/boolean.hpp\"
+    -Dboolean_BOOLEAN_HEADER=\"nonstd/boolean.hpp\" ^
+    -DBOOLEAN_TEST_NODISCARD=1
 
 set msvc_defines=^
     -D_CRT_SECURE_NO_WARNINGS ^
