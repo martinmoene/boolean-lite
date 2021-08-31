@@ -86,7 +86,7 @@ CASE( "__cplusplus" "[.stdc++]" )
 {
     boolean_PRESENT( __cplusplus );
 
-#if _MSVC_LANG
+#ifdef  _MSVC_LANG
     boolean_PRESENT( _MSVC_LANG );
 #else
     boolean_ABSENT(  _MSVC_LANG );
@@ -113,7 +113,7 @@ CASE( "presence of C++ language features" "[.stdlanguage]" )
 
 CASE( "presence of C++ library features" "[.stdlibrary]" )
 {
-#if _HAS_CPP0X
+#ifdef _HAS_CPP0X
     boolean_PRESENT( _HAS_CPP0X );
 #else
     boolean_ABSENT(  _HAS_CPP0X );
