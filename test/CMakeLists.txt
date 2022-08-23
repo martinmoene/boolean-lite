@@ -1,4 +1,4 @@
-# Copyright 2020-2020 by Martin Moene
+# Copyright 2020-2022 by Martin Moene
 #
 # https://github.com/martinmoene/boolean-lite
 #
@@ -11,7 +11,7 @@ endif()
 
 project( test LANGUAGES CXX )
 
-set( unit_name "boolean" )
+# unit_name provided by toplevel CMakeLists.txt [set( unit_name "xxx" )]
 set( PACKAGE   ${unit_name}-lite )
 set( PROGRAM   ${unit_name}-lite )
 set( SOURCES   ${unit_name}-main.t.cpp ${unit_name}.t.cpp )
@@ -31,8 +31,7 @@ macro( opt option_text var )
 endmacro()
 
 set( DEFCMN  -Dboolean_BOOLEAN_HEADER=\"${HEADER}\" )
-
-set( OPTIONS     "" )
+set( OPTIONS "" )
 
 set( HAS_STD_FLAGS  FALSE )
 set( HAS_CPP98_FLAG FALSE )
@@ -80,6 +79,9 @@ elseif( CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang" )
         if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.1.0 )
             set( HAS_CPP17_FLAG TRUE )
         endif()
+        if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0.0 )
+            set( HAS_CPP20_FLAG TRUE )
+        endif()
 
     # AppleClang: available -std flags depends on version
     elseif( CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" )
@@ -94,6 +96,9 @@ elseif( CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang" )
         if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.2.0 )
             set( HAS_CPP17_FLAG TRUE )
         endif()
+        # if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS x.x.x )
+        #     set( HAS_CPP20_FLAG TRUE )
+        # endif()
 
     # Clang: available -std flags depends on version
     elseif( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
@@ -107,6 +112,9 @@ elseif( CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang" )
         endif()
         if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0.0 )
             set( HAS_CPP17_FLAG TRUE )
+        endif()
+        if( NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0.0 )
+            set( HAS_CPP20_FLAG TRUE )
         endif()
     endif()
 
@@ -143,10 +151,10 @@ function( make_target target std )
 
     if( std )
         if( MSVC )
-            target_compile_options( ${target} PRIVATE -std:${std} )
+            target_compile_options( ${target} PRIVATE -std:c++${std} )
         else()
             # Necessary for clang 3.x:
-            target_compile_options( ${target} PRIVATE -std=${std} )
+            target_compile_options( ${target} PRIVATE -std=c++${std} )
             # Ok for clang 4 and later:
             # set( CMAKE_CXX_STANDARD ${std} )
             # set( CMAKE_CXX_STANDARD_REQUIRED ON )
@@ -162,36 +170,40 @@ if( NOT HAS_STD_FLAGS )
 else()
     # unconditionally add C++98 variant as MSVC has no option for it:
     if( HAS_CPP98_FLAG )
-        make_target( ${PROGRAM}-cpp98.t c++98 )
+        make_target( ${PROGRAM}-cpp98.t 98 )
     else()
         make_target( ${PROGRAM}-cpp98.t "" )
     endif()
 
     if( HAS_CPP11_FLAG )
-        make_target( ${PROGRAM}-cpp11.t c++11 )
+        make_target( ${PROGRAM}-cpp11.t 11 )
     endif()
 
     if( HAS_CPP14_FLAG )
-        make_target( ${PROGRAM}-cpp14.t c++14 )
+        make_target( ${PROGRAM}-cpp14.t 14 )
     endif()
 
     if( HAS_CPP17_FLAG )
-        set( std17 c++17 )
+        set( std17 17 )
         if( CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" )
-            set( std17 c++1z )
+            set( std17 1z )
         endif()
         make_target( ${PROGRAM}-cpp17.t ${std17} )
         enable_msvs_guideline_checker( ${PROGRAM}-cpp17.t )
     endif()
 
+    if( HAS_CPP20_FLAG )
+        make_target( ${PROGRAM}-cpp20.t 20 )
+    endif()
+
     if( HAS_CPPLATEST_FLAG )
-        make_target( ${PROGRAM}-cpplatest.t c++latest )
+        make_target( ${PROGRAM}-cpplatest.t latest )
     endif()
 endif()
 
-# with C++17, honour explicit request for std::boolean or nonstd::boolean:
+# with C++17 and later, honour explicit request for std::xxx or nonstd::xxx:
 
-if( HAS_CPP17_FLAG )
+if( HAS_CPP17_FLAG OR HAS_CPP20_FLAG )
     set( WHICH boolean_BOOLEAN_DEFAULT )
 
     if( BOOLEAN_LITE_OPT_SELECT_STD )
@@ -200,7 +212,15 @@ if( HAS_CPP17_FLAG )
         set( WHICH boolean_BOOLEAN_NONSTD )
     endif()
 
-    target_compile_definitions( ${PROGRAM}-cpp17.t PRIVATE boolean_CONFIG_SELECT_BOOLEAN=${WHICH} )
+    message( STATUS "Subproject '${PROJECT_NAME}', C++17 and later using '${WHICH}'")
+
+    if( HAS_CPP17_FLAG )
+        target_compile_definitions( ${PROGRAM}-cpp17.t PRIVATE boolean_CONFIG_SELECT_BOOLEAN=${WHICH} )
+        endif()
+
+    if( HAS_CPP20_FLAG )
+        target_compile_definitions( ${PROGRAM}-cpp20.t PRIVATE boolean_CONFIG_SELECT_BOOLEAN=${WHICH} )
+    endif()
 
     if( HAS_CPPLATEST_FLAG )
         target_compile_definitions( ${PROGRAM}-cpplatest.t PRIVATE boolean_CONFIG_SELECT_BOOLEAN=${WHICH} )
@@ -208,8 +228,6 @@ if( HAS_CPP17_FLAG )
 endif()
 
 # configure unit tests via CTest:
-
-enable_testing()
 
 if( HAS_STD_FLAGS )
     # unconditionally add C++98 variant for MSVC:
@@ -223,6 +241,9 @@ if( HAS_STD_FLAGS )
     endif()
     if( HAS_CPP17_FLAG )
         add_test( NAME test-cpp17     COMMAND ${PROGRAM}-cpp17.t )
+    endif()
+    if( HAS_CPP20_FLAG )
+        add_test( NAME test-cpp20     COMMAND ${PROGRAM}-cpp20.t )
     endif()
     if( HAS_CPPLATEST_FLAG )
         add_test( NAME test-cpplatest COMMAND ${PROGRAM}-cpplatest.t )
