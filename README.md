@@ -105,7 +105,7 @@ Note: The name `boolean_` is used for the type to prevent clashing with type `bo
 | &nbsp;                  |C++11  | \[[nodiscard]] friend explicit constexpr **operator>=(boolean\_ a, boolean\_ b)** noexcept; |
 | &nbsp;                  |&nbsp; |&nbsp;|
 | **Construction**<br>&nbsp;|C++98<br>&nbsp;  | explicit **boolean\_(bool v)**;<br>Note: no copy initialization: `boolean_ b = true;` |
-| **Conversion**<br>&nbsp;  |&#8942;<br>&nbsp;| operator **bool_type()** const;<br>Note: bool_type allows for safe convertions |
+| **Conversion**<br>&nbsp;  |&#8942;<br>&nbsp;| operator **bool_type()** const;<br>Note: bool_type allows for safe conversions |
 | **Negation**            |&#8942;| boolean_ **operator!()** const; |
 | **Equality**            |&#8942;| friend boolean\_ **operator==(boolean\_ a, boolean\_ b)**; |
 | &nbsp;                  |&#8942;| friend boolean\_ **operator!=(boolean\_ a, boolean\_ b)**; |
